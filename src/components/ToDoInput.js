@@ -20,8 +20,16 @@ export default class ToDoInput extends Component {
 							onChange={handleChange}
 						/>
 					</div>
-					<button type="submit" className="btn btn-block btn-primary mt-3">
-						ADD ITEM
+					<button
+						type="submit"
+						disabled={!item}
+						className={
+							editItem
+								? "btn btn-block btn-success mt-3"
+								: "btn btn-block btn-primary mt-3"
+						}
+					>
+						{editItem ? "EDIT ITEM" : "ADD ITEM"}
 					</button>
 				</form>
 			</div>

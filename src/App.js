@@ -7,33 +7,60 @@ import ToDoList from "./components/ToDoList";
 
 class App extends Component {
 	state = {
-		items: [
-			{ id: 1, title: "wake up" },
-			{ id: 2, title: "make breakfast" },
-		],
+		items: [],
 		id: uuid(),
 		item: "",
 		editItem: false,
 	};
 
 	handleChange = (e) => {
-		console.log(e);
+		this.setState({
+			item: e.target.value,
+		});
 	};
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(e);
+		const newItem = {
+			id: this.state.id,
+			title: this.state.item,
+		};
+		const updatedItems = [...this.state.items, newItem];
+		this.setState({
+			items: updatedItems,
+			id: uuid(),
+			item: "",
+			editItem: false,
+		});
 	};
 
 	clearList = () => {
-		console.log("clear list");
+		this.setState({
+			items: [],
+			id: uuid(),
+			item: "",
+			editItem: false,
+		});
 	};
 
 	handleDelete = (id) => {
-		console.log(`handle delete ${id}`);
+		const updatedItems = this.state.items.filter((x) => x.id !== id);
+		this.setState({
+			items: updatedItems,
+			id: uuid(),
+			item: "",
+			editItem: false,
+		});
 	};
 	handleEdit = (id) => {
-		console.log(`handle edit ${id}`);
+		const updatedItems = this.state.items.filter((x) => x.id !== id);
+		const selectedItem = this.state.items.find((x) => x.id === id);
+		this.setState({
+			items: updatedItems,
+			id: id,
+			item: selectedItem.title,
+			editItem: true,
+		});
 	};
 
 	render() {
